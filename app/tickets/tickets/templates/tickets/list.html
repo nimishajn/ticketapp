@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+{% trans "Ticket List" %}
+{% endblock %}
+
+{% block content %}
+    <h1>
+        Tickets
+        <a href="{% url 'tickets:create' %}" class="btn btn-primary">{% trans "New Ticket" %}</a>
+    </h1>
+    <ul>
+        {% for ticket in tickets %}
+        <li>
+            <a href="{% url 'tickets:view' ticket.pk %}">{{ ticket.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

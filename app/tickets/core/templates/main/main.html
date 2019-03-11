@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+{% trans "Welcome to the Ticket System" %}
+{% endblock %}
+
+{% block content %}
+    {% if not is_authenticated %}
+        {% blocktrans trimmed %}
+            <p>You are not authenticated!</p>
+        {% endblocktrans %}
+        <ul>
+            <li>
+                <a href="{% url 'authentication:login' %}">{% trans "Login" %}</a>
+            </li>
+            <li>
+                <a href="{% url 'authentication:registration' %}">{% trans "Sign up" %}</a>
+            </li>
+        </ul>
+
+    {% else %}
+        <p>{%  trans "Welcome! Please have a look at the tickets!" %}</p>
+
+        <p><b>{%  trans "You are currently responsible for the following tickets:" %}</b></p>
+
+        <ul>
+            {% for ticket in your_tickets %}
+                <li><a href="{% url 'tickets:view' ticket.pk %}">{{ ticket }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
